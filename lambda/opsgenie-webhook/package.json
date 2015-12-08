@@ -1,0 +1,14 @@
+{
+  "name": "opsgenie-webhook",
+  "version": "1.0.0",
+  "description": "Calculates and updates the status of service according to the alert actions(Create, Close, AddTags).",
+  "main": "index.js",
+  "dependencies": {
+    "aws-sdk": "^2.2.14",
+    "q": "^1.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "author": "Tuba Ozturk",
+  "license": "ISC"
+}

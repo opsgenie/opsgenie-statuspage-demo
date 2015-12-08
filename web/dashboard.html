@@ -1,0 +1,14 @@
+<div class="container dashboard" ng-controller="DashboardController" >
+    <div class="row" cg-busy="servicesPromise">
+        <div class="col-md-12 no-service" ng-if="isEmptyObject(services)">
+            <h3 class="text-center">No Service Available</h3>
+        </div>
+        <div ui-sref="service({serviceName:name})" class="{{service.state}} service" ng-repeat="(name, service) in services">
+            <p>{{name}}</p>
+            <p>{{service.message == "" ? defaultMessage : service.message}}</p>
+        </div>
+        <div ng-if="error">
+            <h3 class="text-center">{{error}}</h3>
+        </div>
+    </div>
+</div>

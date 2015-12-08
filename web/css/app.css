@@ -1,0 +1,124 @@
+body {
+  background-color: #e7e7e7;
+}
+body .container {
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+  position: relative;
+  z-index: 4;
+  min-height: 1000px;
+  background-color: #ffffff;
+}
+body .container .green {
+  color: green;
+}
+body .container .major {
+  color: orange;
+}
+body .container .critical {
+  color: red;
+}
+body .container .resolved strong,
+body .container .resolved .note-msg,
+body .container .resolved p,
+body .container .resolved span {
+  color: grey !important;
+}
+body .container .thumbnail {
+  padding: 14px 29px;
+}
+body .container .service-state {
+  margin-top: 50px;
+}
+body .container .service-state p {
+  font-size: 17px;
+  margin-bottom: 0;
+}
+body .container .incident {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 40px;
+}
+body .container .incident i {
+  padding-right: 5px;
+  font-size: 23px;
+}
+body .container .incident .alert-message {
+  line-height: 35px;
+}
+body .container .incident .activity {
+  margin-bottom: 0;
+  padding: 10px 29px;
+}
+body .container .incident .notes {
+  min-height: 100px;
+}
+body .container .incident .notes .note-msg {
+  padding-left: 10px;
+}
+body .container .incident strong {
+  color: #20597e;
+}
+body .container .incident .clearfix {
+  line-height: 38px;
+  font-size: 17px;
+  padding-bottom: 20px;
+}
+body .container.dashboard {
+  padding: 50px 70px;
+}
+body .container.dashboard .service {
+  cursor: pointer;
+  margin-bottom: 40px;
+  margin-left: 5%;
+  margin-right: 5%;
+  border: 5px solid;
+  padding: 30px;
+  text-align: center;
+  min-height: 75px;
+}
+body .container.dashboard .service .green {
+  border-color: green;
+}
+body .container.dashboard .service .major {
+  border-color: orange;
+}
+body .container.dashboard .service .critical {
+  border-color: red;
+}
+body .container.dashboard .service p {
+  color: black !important;
+  font-size: 18px;
+}
+body .container.dashboard .service p:first-child {
+  font-size: 25px !important;
+}
+body .container.dashboard .row {
+  min-height: 200px;
+}
+body .container .dashboard-link {
+  margin: 30px 20px;
+  font-size: 18px;
+}
+body .container .no-alert,
+body .container .no-service {
+  margin-top: 50px;
+}
+.busy {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-image: url("../images/loading.gif");
+  background-repeat: no-repeat;
+}
+.busy-container {
+  height: 100px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+[ng-cloak] {
+  display: none !important;
+}
+
+/*# sourceMappingURL=app.css.map */

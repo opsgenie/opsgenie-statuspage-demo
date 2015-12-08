@@ -1,0 +1,12 @@
+{
+  "name": "",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "author": "Tuba Ozturk",
+  "license": "ISC"
+}

@@ -1,0 +1,49 @@
+<div ng-controller="StatusPageController">
+    <div class="container" ng-init="loadAlerts()">
+        <div class="dashboard-link row">
+            <a ui-sref="dashboard">&lt;&lt;Back to the Dashboard</a>
+        </div>
+        <div ng-if="service" class="row">
+            <div class="service-state thumbnail col-md-10 col-md-offset-1" ng-class="{'alert-success': service.state == 'green', 'alert-warning': service.state == 'major', 'alert-danger': service.state == 'critical'}">
+                <p>{{service.message != "" ? service.message : defaultMessage}}</p>
+            </div>
+        </div>
+        <div class="row" ng-if="alerts" infinite-scroll="loadAlerts()" infinite-scroll-distance='0.4'>
+            <div class="col-md-12 no-alert" ng-if="alerts.length == 0">
+                <h2 class="text-center">No Alert Exists For the Service</h2>
+            </div>
+            <div class="col-md-12">
+                <div class="incident" ng-repeat="alert in alerts">
+                    <div class="thumbnail" ng-class="{'resolved': alert.status == 'closed'}">
+                        <div class="clearfix">
+                            <strong class="pull-left">{{alert.date | date:"MM/dd/yyyy h:mma"}}</strong>
+                            <button type="button" class="activity thumbnail btn pull-right" ng-click="loadAlertNotes($index, alert.id)">Activity</button>
+                        </div>
+                        <div class="clearfix">
+                            <i class="fa fa-warning {{alert.severity}}"></i>
+                            <span class="h3 {{alert.severity}} alert-message"><span ng-if="alert.status == 'closed'">(Resolved) </span>{{alert.message}}</span>
+                        </div>
+
+                        <div uib-collapse="alert.isCollapsed" class="notes caption" cg-busy="alert.notesPromise">
+                            <div ng-show="alert.notes">
+                                <h4 class="section-title">ACTIVITY</h4>
+                                <hr/>
+                                <p ng-if="alert.notes.length == 0">No activity yet.</p>
+                                <ul class="list-unstyled" ng-repeat="note in alert.notes">
+                                    <li>
+                                        <strong class="pull-left">{{ note.createdAt | date:"MM/dd/yyyy h:mma"}}</strong>
+                                        <span class="note-msg">-&nbsp;&nbsp;{{note.note}}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div type="error" ng-if="error">
+            <h3>{{error}}</h3>
+        </div>
+        <div class="busy-container" cg-busy="[servicePromise,listAlertPromise]"></div>
+    </div>
+</div>
