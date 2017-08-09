@@ -7,8 +7,7 @@ var ogPort = 443;
 
 var reqTimeout = 30000;
 
-var listAlertsEndpoint = "/v1/json/alert";
-var listAlertNotesEndpoint = "/v1/json/alert/note";
+var listAlertsEndpoint = "/v2/alerts/";
 //OpsGenie API Variables end
 
 var options = {
@@ -18,7 +17,8 @@ var options = {
     method: 'GET',
     headers: {
         'X-Js-Client': 'true',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'GenieKey ' + config.opsgenieApiKey
     }
 };
 
@@ -31,7 +31,7 @@ function doGetRequest (path, context){
             body += chunk;
         });
         res.on('end', function () {
-            if (res.statusCode === 200) {
+            if (res.statusCode > 199 && res.statusCode < 300) {
                 console.log("Execution completed successfully.");
                 context.succeed(JSON.parse(body));
             } else {
@@ -52,15 +52,15 @@ function doGetRequest (path, context){
 }
 
 function listAlerts(event, context){
-    var path = listAlertsEndpoint + "?apiKey=" + config.opsgenieApiKey + "&limit="+ event.limit +"&tags=" + encodeURIComponent(config.statusPageTag)+ "," +  encodeURIComponent(config.serviceNameTagPrefix + event.serviceName) ;
+    var path = listAlertsEndpoint + "?limit="+ event.limit +"&query=tags%3A" + encodeURIComponent(config.statusPageTag)+ "," +  encodeURIComponent(config.serviceNameTagPrefix + event.serviceName) ;
     if(event.createdBefore){
-        path += "&createdBefore=" + event.createdBefore;
+        path += "&query=createdBefore%3A" + event.createdBefore;
     }
     doGetRequest(path, context);
 }
 
 function listAlertNotes(event, context){
-    var path = listAlertNotesEndpoint + "?apiKey=" + config.opsgenieApiKey + "&limit="+ event.limit + "&id=" + event.id;
+    var path = listAlertsEndpoint + event.id + "/notes?limit="+ event.limit;
     doGetRequest(path, context);
 }
 
