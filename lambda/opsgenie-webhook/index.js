@@ -10,7 +10,7 @@ var ogPort = 443;
 
 var reqTimeout = 30000;
 
-var listAlertsEndpoint = "/v1/json/alert";
+var listAlertsEndpoint = "/v2/alerts";
 //OpsGenie API Variables end
 
 aws.config.update({ accessKeyId: config.accessKeyId, secretAccessKey: config.secretAccessKey });
@@ -29,7 +29,9 @@ var options = {
     method: 'GET',
     headers: {
         'X-Js-Client': 'true',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': 'GenieKey ' + config.opsgenieApiKey
+
     }
 };
 
@@ -43,7 +45,7 @@ function doGetRequest(context, path){
             body += chunk;
         });
         res.on('end', function () {
-            if (res.statusCode === 200) {
+            if (res.statusCode > 199 && res.statusCode < 300) {
                 def.resolve(JSON.parse(body));
             } else {
                 var errMsg = 'Execution failed. Req Path:' + path + " Response Body: " + JSON.stringify(body);
@@ -66,7 +68,7 @@ function doGetRequest(context, path){
 }
 
 function listAlerts (context, serviceName){
-    var path = listAlertsEndpoint + "?apiKey=" + config.opsgenieApiKey + "&status=open&limit=100&tags=" + encodeURIComponent(config.statusPageTag ) + ","+ encodeURIComponent(config.serviceNameTagPrefix +serviceName);
+    var path = listAlertsEndpoint + "?query=status%3Aopen&limit=100&query=tags%3A" + encodeURIComponent(config.statusPageTag ) + ","+ encodeURIComponent(config.serviceNameTagPrefix +serviceName);
     console.log("List Alerts URL: " + path);
     return doGetRequest(context, path);
 }
