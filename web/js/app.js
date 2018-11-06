@@ -118,12 +118,12 @@ angular.module('myApp', ['infinite-scroll', 'cgBusy', 'ui.bootstrap', 'ui.router
                             alertsLock = false;
                         }else{
                             $scope.alerts = $scope.alerts || [];
-                            alertsSize = result.alerts.length;
+                            alertsSize = result.data.length;
                             for(var i=0; i<alertsSize; i++){
-                                var alert = result.alerts[i];
+                                var alert = result.data[i];
 
                                 var severity = getAlertsSeverity(alert.tags);
-                                var alertObj = {severity: severity, status: alert.status, message: alert.message, date: (Number(alert.createdAt)) / 1000000, createdAt: alert.createdAt, id: alert.id, isCollapsed: true};
+                                var alertObj = {severity: severity, status: alert.status, message: alert.message, date: alert.createdAt, createdAt: alert.createdAt, id: alert.id, isCollapsed: true};
                                 $scope.alerts.push(alertObj);
                                 if(i == 0){
                                     loadAlertNotes(0, alert.id);

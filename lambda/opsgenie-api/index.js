@@ -52,7 +52,7 @@ function doGetRequest (path, context){
 }
 
 function listAlerts(event, context){
-    var path = listAlertsEndpoint + "?limit="+ event.limit +"&query=tags%3A" + encodeURIComponent(config.statusPageTag)+ "," +  encodeURIComponent(config.serviceNameTagPrefix + event.serviceName) ;
+    var path = listAlertsEndpoint + "?limit=" + event.limit + "&query=tag%3A%27" + encodeURIComponent(config.statusPageTag) + "%27%20tag%3A%27" + encodeURIComponent(config.serviceNameTagPrefix + event.serviceName) + "%27";
     if(event.createdBefore){
         path += "&query=createdBefore%3A" + event.createdBefore;
     }
